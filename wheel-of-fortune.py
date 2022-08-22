@@ -182,15 +182,21 @@ def turn(player_num):
         1. Buy a vowel
         2. Spin the wheel
         3. Guess the word""")
-        turn = int(input("Enter 1, 2, or 3: "))
+        is_valid = False
+        while not is_valid:
+            try:
+                turn = int(input("Enter 1, 2, or 3: "))
+                is_valid = True
+            except:
+                print('Invalid input, try again.')
         if turn == 1:
             if players[player_num]['roundtotal'] < 250:
                 print("Sorry, you don't have enough money to buy a vowel. Choose something else.")
             else:
                 is_turn = buy_vowel(player_num)
-        if turn == 2:
+        elif turn == 2:
             is_turn = spin_wheel(player_num)
-        if turn == 3:
+        elif turn == 3:
             is_turn = guess_word(player_num)
     return player_num
 
@@ -243,9 +249,18 @@ def final_round():
     while ''.join(guessed) != word:
         consonant = 0
         while consonant < 3:
-            letter = input("Guess a consonant: ")
-            guess_letter(letter)
-            consonant = consonant + 1
+            consonants = 0
+            for i in guessed:
+                if i == '_':
+                    is_vowel = word[guessed.index(i)] in vowels
+                    if not is_vowel:
+                        consonants = consonants + 1
+            if consonants == 0:
+                consonant = 3
+            else:
+                letter = input("Guess a consonant: ")
+                guess_letter(letter)
+                consonant = consonant + 1
         letter = input("Guess a vowel: ")
         guess_letter(letter)
         break
