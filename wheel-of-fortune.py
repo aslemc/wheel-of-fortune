@@ -41,7 +41,10 @@ def read_wheel():
 # will display round total
 def display_scores():
     for i in players:
-        print(f"{players[i]['name']}: ${players[i]['gametotal']}")
+        print(f"""
+        {players[i]['name']}: 
+        Game total: ${players[i]['gametotal']}
+        Round total: ${players[i]['roundtotal']}""")
 
 #selects the word and creates a list of underscores to represent the current guesses
 def get_word():
@@ -272,9 +275,8 @@ def game():
             final_round()
     print("Thanks for playing!")
 
-# again = 'y'
-# while again == 'y':
-  #  game()
-   # again = input("Would you like to play again? Type y to play again: ").lower()
-#print("Goodbye!")
-game()
+again = 'y'
+while again == 'y':
+    game()
+    again = input("Would you like to play again? Press y to play again: ")
+print("Goodbye!")
